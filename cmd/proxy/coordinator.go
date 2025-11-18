@@ -115,7 +115,7 @@ func (c *Coordinator) DoScrape(ctx context.Context, r *http.Request) (*http.Resp
 	r.Header.Add("Id", id)
 	select {
 	case <-ctx.Done():
-		return nil, fmt.Errorf("Timeout reached for %q: %s", r.URL.String(), ctx.Err())
+		return nil, fmt.Errorf("timeout reached for %q: %s", r.URL.String(), ctx.Err())
 	case c.getRequestChannel(r.URL.Hostname()) <- r:
 	}
 

@@ -145,7 +145,7 @@ func (h *httpHandler) handlePoll(w http.ResponseWriter, r *http.Request) {
 	request, err := h.coordinator.WaitForScrapeInstruction(strings.TrimSpace(string(fqdn)))
 	if err != nil {
 		h.logger.Info("Error WaitForScrapeInstruction:", "err", err)
-		http.Error(w, fmt.Sprintf("Error WaitForScrapeInstruction: %s", err.Error()), 408)
+		http.Error(w, fmt.Sprintf("Error WaitForScrapeInstruction: %s", err.Error()), http.StatusRequestTimeout)
 		return
 	}
 	//nolint:errcheck // https://github.com/prometheus-community/PushProx/issues/111
